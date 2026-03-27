@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const app = express();
 
@@ -18,6 +19,8 @@ const db = mysql.createConnection({
   database: process.env.MYSQLDATABASE,
   port: process.env.MYSQLPORT
 });
+
+console.log("DB HOST:", process.env.MYSQLHOST); // 🔥 DEBUG
 
 db.connect((err) => {
   if (err) {
@@ -195,6 +198,3 @@ app.put("/update-payment/:id", verifyToken, (req, res) => {
 });
 
 
-app.listen(5000, () => {
-  console.log("🚀 Server running on http://localhost:5000");
-});
